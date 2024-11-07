@@ -70,7 +70,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 
-<p>
+<pre>
 git clone https://github.com/QuangVinh170220005/Travel-Website.git
 composer install
 php artisan migrate
@@ -83,4 +83,4 @@ git reset --hard (nếu không pull được)
 git pull origin main
 
 pull (cập nhật code về local)
-</p>
+</pre>
