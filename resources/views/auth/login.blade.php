@@ -15,6 +15,21 @@
             backdrop-filter: blur(10px);
         }
     </style>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("password");
+            const eyeIcon = document.getElementById("eye-icon");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
     <!-- Main Container -->
@@ -69,10 +84,11 @@
                             <i class="fas fa-lock"></i>
                         </span>
                         <input type="password" 
+                               id="password" 
                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
                                placeholder="••••••••">
-                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
-                            <i class="far fa-eye"></i>
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
+                            <i id="eye-icon" class="far fa-eye"></i>
                         </button>
                     </div>
                 </div>

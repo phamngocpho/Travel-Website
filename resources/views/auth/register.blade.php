@@ -15,6 +15,22 @@
             backdrop-filter: blur(10px);
         }
     </style>
+    <script>
+        // Function to toggle password visibility
+        function togglePasswordVisibility(inputId, eyeIconId) {
+            const passwordInput = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeIconId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
     <!-- Main Container -->
@@ -84,11 +100,12 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <input type="password" 
+                            <input id="password" type="password" 
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
                                    placeholder="••••••••">
-                            <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
-                                <i class="far fa-eye"></i>
+                            <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                                    onclick="togglePasswordVisibility('password', 'password-eye')">
+                                <i id="password-eye" class="far fa-eye"></i>
                             </button>
                         </div>
                     </div>
@@ -101,11 +118,12 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <input type="password" 
+                            <input id="confirm-password" type="password" 
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
                                    placeholder="••••••••">
-                            <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
-                                <i class="far fa-eye"></i>
+                            <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                                    onclick="togglePasswordVisibility('confirm-password', 'confirm-password-eye')">
+                                <i id="confirm-password-eye" class="far fa-eye"></i>
                             </button>
                         </div>
                     </div>
