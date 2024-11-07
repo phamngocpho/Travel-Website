@@ -76,6 +76,7 @@ composer install
 php artisan migrate
 php artisan key:generate
 
+git add .
 git commit -m "tên tùy ý"      
 git push -u origin main
 
