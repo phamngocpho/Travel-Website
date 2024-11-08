@@ -60,7 +60,8 @@
             </div>
 
             <!-- Login Form -->
-            <form class="space-y-6">
+            <form class="space-y-6" action="{{route('login')}}" method="post">
+            @csrf
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Email hoặc tên đăng nhập
@@ -69,9 +70,12 @@
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                             <i class="far fa-envelope"></i>
                         </span>
-                        <input type="email" 
+                        <input type="email" id="email" name="email" value="{{ old('email') }}"   
                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                               placeholder="example@domain.com">
+                               placeholder="example@domain.com" required autofocus>
+                               @error('email')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
                     </div>
                 </div>
 
@@ -83,10 +87,13 @@
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                             <i class="fas fa-lock"></i>
                         </span>
-                        <input type="password" 
+                        <input type="password" id="password" name="password" required
                                id="password" 
                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
                                placeholder="••••••••">
+                               @error('password')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
                         <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
                             <i id="eye-icon" class="far fa-eye"></i>
                         </button>

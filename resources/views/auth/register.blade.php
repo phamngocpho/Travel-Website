@@ -63,8 +63,23 @@
                 </div>
 
                 <!-- Register Form -->
-                <form class="space-y-6">
+                <form class="space-y-6" action="{{route('register')}}" method="post">
+                @if(session('success'))
+                    <div style="color: green;">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div style="color: red;">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     <div>
+                    @csrf
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Họ và tên
                         </label>
@@ -72,9 +87,9 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                 <i class="far fa-user"></i>
                             </span>
-                            <input type="text" 
+                            <input type="text" id="full_name"  name="full_name" value="{{old('full_name')}}"
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                                   placeholder="Nguyễn Văn A">
+                                   placeholder="Nguyễn Văn A" required>
                         </div>
                     </div>
 
@@ -86,9 +101,9 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                 <i class="far fa-envelope"></i>
                             </span>
-                            <input type="email" 
+                            <input type="email" id="email" name="email" value="{{old('email')}}"
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                                   placeholder="example@domain.com">
+                                   placeholder="example@domain.com" required>
                         </div>
                     </div>
 
@@ -100,9 +115,9 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <input id="password" type="password" 
+                            <input id="password" type="password" name="password"
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                                   placeholder="••••••••">
+                                   placeholder="••••••••" required>
                             <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
                                     onclick="togglePasswordVisibility('password', 'password-eye')">
                                 <i id="password-eye" class="far fa-eye"></i>
@@ -118,9 +133,9 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <input id="confirm-password" type="password" 
+                            <input id="confirm-password" type="password" name="password_confirmation"
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-                                   placeholder="••••••••">
+                                   placeholder="••••••••" required>
                             <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
                                     onclick="togglePasswordVisibility('confirm-password', 'confirm-password-eye')">
                                 <i id="confirm-password-eye" class="far fa-eye"></i>
