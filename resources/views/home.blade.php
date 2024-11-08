@@ -8,7 +8,7 @@
     <div class="relative h-screen bg-cover bg-center" style="background-image: url('https://i.pinimg.com/736x/70/35/00/703500d5da9cf9eb3d60e39844da7e5e.jpg');">
         <div class="absolute inset-0 bg-black opacity-40"></div>
         <div class="container mx-auto h-full relative z-10">
-            <div class="flex items-center justify-center h-full">
+            <div class="flex items-end justify-center h-full py-56">
                 <div class="text-center text-white">
                     <h1 class="text-5xl font-bold mb-4 hover:text-yellow-300">Discover Your Perfect Destination</h1>
                     <p class="text-xl mb-8">Explore amazing holiday packages and create unforgettable memories</p>
@@ -41,7 +41,7 @@
     </div>
 
     <!-- City Search Section -->
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-16">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
                 <h1 class="text-4xl font-bold text-center md:text-left transition-all duration-300 hover:text-5xl hover:text-blue-600">Best holiday deals</h1>
@@ -146,7 +146,7 @@
 
     <div class="container mx-auto px-4 py-8">
         <!-- Tiêu đề -->
-        <h2 class="text-3xl font-bold text-gray-800 mb-8 font-['Kalam']">latest travel libraries</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 font-['Kalam']">Latest Travel Libraries</h2>
 
         <!-- Grid container -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
