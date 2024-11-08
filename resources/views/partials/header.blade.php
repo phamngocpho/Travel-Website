@@ -1,5 +1,5 @@
 <!-- resources/views/partials/header.blade.php -->
-<nav class="bg-white shadow-lg">
+<nav class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 transition-transform duration-300" id="navbar">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between">
             <div class="flex space-x-7">
@@ -29,6 +29,12 @@
                               transition duration-300 border-b-2 border-transparent 
                               hover:border-blue-500">
                         Help
+                    </a>
+                    <a href="{{ route('blog') }}" 
+                       class="py-4 px-3 text-gray-700 font-roboto hover:text-blue-500 
+                              transition duration-300 border-b-2 border-transparent 
+                              hover:border-blue-500">
+                        <i class="mr-1"></i>Blog
                     </a>
                     <a href="{{ route('wishlist') }}" 
                        class="py-4 px-3 text-gray-700 font-roboto hover:text-blue-500 
@@ -89,6 +95,11 @@
                       hover:text-blue-500 hover:bg-gray-100 transition duration-300">
                 Help
             </a>
+            <a href="{{ route('blog') }}"
+               class="block px-3 py-2 rounded-md text-base font-roboto text-gray-700
+                      hover:text-blue-500 hover:bg-gray-100 transition duration-300">
+                <i class="mr-1"></i>Blog
+            </a>
             <a href="{{ route('wishlist') }}"
                class="block px-3 py-2 rounded-md text-base font-roboto text-gray-700
                       hover:text-blue-500 hover:bg-gray-100 transition duration-300">
@@ -109,7 +120,10 @@
     </div>
 </nav>
 
-<!-- Script for Mobile Menu Toggle -->
+<!-- Spacer để tránh content bị che bởi fixed navbar -->
+<div class="h-16"></div>
+
+<!-- Script for Mobile Menu Toggle and Navbar Scroll -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Mobile Menu Toggle
@@ -131,6 +145,28 @@
                 menu.classList.remove('scale-y-100');
                 menu.classList.add('scale-y-0');
             }
+        });
+
+        // Navbar scroll behavior
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        const scrollThreshold = 100; // Ngưỡng cuộn để bắt đầu ẩn navbar
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Chỉ xử lý khi cuộn đủ ngưỡng
+            if (Math.abs(lastScrollTop - scrollTop) <= 10) return;
+
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                // Cuộn xuống
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Cuộn lên
+                navbar.style.transform = 'translateY(0)';
+            }
+
+            lastScrollTop = scrollTop;
         });
 
         // Add active state to current page link

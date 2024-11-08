@@ -23,7 +23,7 @@ class AuthController extends Controller
         Log::info('Attempting login for email: ' . $credentials['email']);
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('top-deals');
+            return redirect()->intended('/');
         }
         Log::error('Login failed for email: ' . $credentials['email']);
 

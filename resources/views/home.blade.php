@@ -5,7 +5,7 @@
 @section('content')
 <div class="relative">
     <!-- Hero Banner -->
-    <div class="relative h-screen bg-cover bg-center" style="background-image: url('https://i.pinimg.com/736x/70/35/00/703500d5da9cf9eb3d60e39844da7e5e.jpg');">
+    <div class="relative h-screen bg-cover bg-center" style="background-image: url('https://media.istockphoto.com/id/1429367591/vi/anh/m%E1%BB%99t-gia-%C4%91%C3%ACnh-trong-k%E1%BB%B3-ngh%E1%BB%89-h%C3%A8-%C4%91%E1%BB%A9ng-b%C3%AAn-h%E1%BB%93-b%C6%A1i-v%C3%A0-t%E1%BA%ADn-h%C6%B0%E1%BB%9Fng-c%E1%BA%A3nh-ho%C3%A0ng-h%C3%B4n-tuy%E1%BB%87t-%C4%91%E1%BA%B9p.jpg?s=2048x2048&w=is&k=20&c=8nfsgkJNVCzOainEs-Jlq-mTpaqHKQXVAWEjcM3eXDs=');">
         <div class="absolute inset-0 bg-black opacity-40"></div>
         <div class="container mx-auto h-full relative z-10">
             <div class="flex items-end justify-center h-full py-56">
@@ -98,9 +98,9 @@
                             </div>
                         </div>
                         <p class="text-sm text-gray-500 mb-4">Per Person twin Share</p>
-                        <button class="w-full py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-blue-500 hover:text-white transition-all duration-300 transform hover:scale-105">
+                        <a href="{{ route('trip-details') }}" class="inline-block w-full py-2 text-center bg-gray-100 text-gray-800 rounded-md hover:bg-blue-500 hover:text-white transition-all duration-300 transform hover:scale-105">
                             Enquire Now
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

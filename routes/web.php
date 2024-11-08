@@ -27,6 +27,14 @@ Route::get('/help', function () {
     return view('help');
 }) ->name('help');
 
+Route::get('/blog', function () {
+    return view('blog');
+}) ->name('blog');
+
 Route::get('/wishlist', function () {
     return view('wishlist');
 })  ->name('wishlist');
+
+Route::get('/trip-details', function () {
+    return view('trip-details');
+})  ->name('trip-details');
