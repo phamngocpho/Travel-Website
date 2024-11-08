@@ -10,7 +10,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::get('/holiday-packages', function () {
-    return view('holiday-packages');
+    return view(view: 'holiday-packages');
 }) ->name('holiday-packages');
 
 
