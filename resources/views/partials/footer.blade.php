@@ -73,7 +73,7 @@
 
     <!-- Copyright -->
     <div class="mt-12 text-center text-sm text-gray-600">
-      Copyright © 2024, Orbit studio. All rights reserved.
+      Copyright © 2024, Tourism Website . All rights reserved.
     </div>
   </div>
 </footer>
