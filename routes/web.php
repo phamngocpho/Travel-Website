@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
-    return view('home');
+    return view('user.home');
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -15,26 +15,31 @@ Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/holiday-packages', function () {
-    return view(view: 'holiday-packages');
+    return view(view: 'user.holiday-packages');
 }) ->name('holiday-packages');
 
 
 Route::get('/top-deals', function () {
-    return view('top-deals');
+    return view('user.top-deals');
 }) ->name('top-deals');
 
 Route::get('/help', function () {
-    return view('help');
+    return view('user.help');
 }) ->name('help');
 
-Route::get('/blog', function () {
-    return view('blog');
+Route::get('/blog', action: function () {
+    return view('user.blog');
 }) ->name('blog');
 
 Route::get('/wishlist', function () {
-    return view('wishlist');
+    return view('user.wishlist');
 })  ->name('wishlist');
 
 Route::get('/trip-details', function () {
-    return view('trip-details');
+    return view('user.trip-details');
 })  ->name('trip-details');
+
+
+Route::get('/admin', function () {
+    return view('admin.home');
+})  ->name('admin');

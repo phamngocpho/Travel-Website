@@ -42,13 +42,13 @@
     @yield('styles')
 </head>
 <body class="font-sans min-h-screen flex flex-col">
-    @include('partials.header')
+    @include('user.partials.header')
     
     <main>
         @yield('content')
     </main>
 
-    @include('partials.footer')
+    @include('user.partials.footer')
     
     @yield('scripts')
 </body>

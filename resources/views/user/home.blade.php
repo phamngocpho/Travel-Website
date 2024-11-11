@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user.layouts.app')
 
 @section('title', 'Welcome to Traveling - Your Perfect Holiday Partner')
 

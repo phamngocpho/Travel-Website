@@ -76,4 +76,4 @@
       Copyright © 2024, Tourism Website . All rights reserved.
     </div>
   </div>
-</footer>
+</div>
