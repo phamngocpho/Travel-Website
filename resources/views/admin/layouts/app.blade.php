@@ -40,9 +40,9 @@
                     </a>
 
                     <!-- Orders -->
-                    <a href="#" class="menu-item flex items-center space-x-3 text-gray-400 hover:text-white px-3 py-2 rounded-lg transition-all duration-200">
+                    <a href="{{route('addTour')}}" class="menu-item flex items-center space-x-3 text-gray-400 hover:text-white px-3 py-2 rounded-lg transition-all duration-200">
                         <i data-feather="shopping-bag" class="w-5 h-5"></i>
-                        <span>Orders</span>
+                        <span>Add Tour</span>
                     </a>
 
                     <!-- Rides -->
