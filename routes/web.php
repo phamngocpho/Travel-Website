@@ -14,10 +14,21 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/holiday-packages', function () {
-    return view(view: 'user.holiday-packages');
-}) ->name('holiday-packages');
+Route::get('/explore', function () {
+    return view(view: 'user.explore');
+}) ->name('explore');
 
+Route::get('/explore/all', function () {
+    return view('user.explore.all');
+})  ->name('explore-all');
+
+Route::get('/explore/show', function () {
+    return view('user.explore.show');
+})  ->name('explore-show');
+
+Route::get('/destinations/show', function () {
+    return view('user.destinations.show');
+})  ->name('destinations-show');
 
 Route::get('/top-deals', function () {
     return view('user.top-deals');
@@ -43,3 +54,11 @@ Route::get('/trip-details', function () {
 Route::get('/admin', function () {
     return view('admin.home');
 })  ->name('admin');
+
+Route::get('/admin/security', function () {
+    return view('admin.security');
+})  ->name('security');
+
+Route::get('/admin/security', function () {
+    return view('admin.security');
+})  ->name('security');

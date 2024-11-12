@@ -12,11 +12,11 @@
 
                 <!-- Primary Navbar items -->
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="{{ route('holiday-packages') }}" 
+                    <a href="{{ route('explore') }}" 
                        class="py-4 px-3 text-gray-700 font-roboto hover:text-blue-500 
                               transition duration-300 border-b-2 border-transparent 
                               hover:border-blue-500">
-                        Holiday Packages
+                        Explore
                     </a>
                     <a href="{{ route('top-deals') }}" 
                        class="py-4 px-3 text-gray-700 font-roboto hover:text-blue-500 
@@ -80,10 +80,10 @@
     <!-- Mobile Menu -->
     <div class="hidden mobile-menu md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50">
-            <a href="{{ route('holiday-packages') }}"
+            <a href="{{ route('explore') }}"
                class="block px-3 py-2 rounded-md text-base font-roboto text-gray-700
                       hover:text-blue-500 hover:bg-gray-100 transition duration-300">
-                Holiday Packages
+                Explore
             </a>
             <a href="{{ route('top-deals') }}"
                class="block px-3 py-2 rounded-md text-base font-roboto text-gray-700
