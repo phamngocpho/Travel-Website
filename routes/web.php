@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TourController;
 
 Route::get('/', function () {
     return view('user.home');
@@ -59,6 +60,5 @@ Route::get('/admin/security', function () {
     return view('admin.security');
 })  ->name('security');
 
-// Route::get('/admin/security', function () {
-//     return view('admin.security');
-// })  ->name('security');
+Route::get('/tours/create', [TourController::class, 'create'])->name('tours.create');
+Route::post('/tours/store', [TourController::class, 'store'])->name('tours.store');

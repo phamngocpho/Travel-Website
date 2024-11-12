@@ -46,7 +46,7 @@
 
                     <!-- Tour -->
                     <div class="relative group">
-                        <a href="#" 
+                        <a href="{{ route('tours.create')}}" 
                             class="menu-item flex text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200"
                             :class="{'': collapsed}"
                             @mouseenter="$refs.tourTooltip.classList.remove('hidden')"
