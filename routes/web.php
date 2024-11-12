@@ -59,6 +59,6 @@ Route::get('/admin/security', function () {
     return view('admin.security');
 })  ->name('security');
 
-Route::get('/admin/security', function () {
-    return view('admin.security');
-})  ->name('security');
+// Route::get('/admin/security', function () {
+//     return view('admin.security');
+// })  ->name('security');

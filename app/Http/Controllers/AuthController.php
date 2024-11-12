@@ -14,15 +14,17 @@ class AuthController extends Controller
     public function showLoginForm() {
         return view('auth.login');
     }
-
-    public function login(Request $request){
+    public function login(Request $request) {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
         Log::info('Attempting login for email: ' . $credentials['email']);
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            if (Auth::user()->role === 'ADMIN') {
+                return redirect()->intended('/admin');
+            }
             return redirect()->intended('/');
         }
         Log::error('Login failed for email: ' . $credentials['email']);
@@ -36,7 +38,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('register');
+        return redirect('login');
     }
 
     public function showRegistrationForm()
