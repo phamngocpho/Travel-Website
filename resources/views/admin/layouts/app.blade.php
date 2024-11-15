@@ -47,7 +47,9 @@
     @include('admin.partials.sidebar')
     
     <main>
-        @yield('content')
+        <div id="content-container">
+            @yield('content')
+        </div>
     </main>
 
     

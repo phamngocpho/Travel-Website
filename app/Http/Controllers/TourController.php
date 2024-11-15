@@ -14,9 +14,16 @@ class TourController extends Controller
     public function create()
     {
         $locations = Location::all();
+        
+        // Kiểm tra nếu là AJAX request
+        if (request()->ajax()) {
+            // Trả về chỉ phần view content
+            return view('admin.create', compact('locations'))->render();
+        }
+        
+        // Nếu không phải AJAX, trả về view đầy đủ với layout
         return view('admin.create', compact('locations'));
     }
-
 
     public function store(Request $request) 
     {
@@ -49,32 +56,58 @@ class TourController extends Controller
 
             DB::commit();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Tour created successfully',
-                'data' => $tour
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Tour created successfully',
+                    'data' => $tour,
+                    // Thêm URL để redirect sau khi tạo thành công
+                    'redirect_url' => route('tours.create'),
+                ]);
+            }
+
+            // Nếu không phải AJAX request
+            return redirect()->route('tours.create')
+                           ->with('success', value: 'Tour created successfully');
 
         } catch (ValidationException $e) {
             DB::rollBack();
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
-            ], 422);
+            
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            
+            return back()->withErrors($e->errors())
+                        ->withInput();
+
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 500);
+            
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+            
+            return back()->with('error', $e->getMessage())
+                        ->withInput();
         }
     }
 
-
-
-    
-
+    // Thêm method để lấy partial view cho AJAX
+    public function getPartialView($viewName, $data = [])
+    {
+        if (request()->ajax()) {
+            return view("admin.partials.{$viewName}", $data)->render();
+        }
+        
+        abort(404);
+    }
 
     public function finalStore(Request $request)
     {
@@ -105,10 +138,30 @@ class TourController extends Controller
             }
             
             DB::commit();
-            return response()->json(['success' => true]);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => route('tours.create'),
+                    'message' => 'Tour created successfully'
+                ]);
+            }
+
+            return redirect()->route('tours.create')
+                           ->with('success', 'Tour created successfully');
+
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+
+            return back()->with('error', $e->getMessage())
+                        ->withInput();
         }
     }
 }

@@ -8,7 +8,7 @@
     <div class="relative h-screen bg-cover bg-center" style="background-image: url('https://media.istockphoto.com/id/1429367591/vi/anh/m%E1%BB%99t-gia-%C4%91%C3%ACnh-trong-k%E1%BB%B3-ngh%E1%BB%89-h%C3%A8-%C4%91%E1%BB%A9ng-b%C3%AAn-h%E1%BB%93-b%C6%A1i-v%C3%A0-t%E1%BA%ADn-h%C6%B0%E1%BB%9Fng-c%E1%BA%A3nh-ho%C3%A0ng-h%C3%B4n-tuy%E1%BB%87t-%C4%91%E1%BA%B9p.jpg?s=2048x2048&w=is&k=20&c=8nfsgkJNVCzOainEs-Jlq-mTpaqHKQXVAWEjcM3eXDs=');">
         <div class="absolute inset-0 bg-black opacity-40"></div>
         <div class="container mx-auto h-full relative z-10">
-            <div class="flex items-end justify-center h-full py-56">
+            <div class="flex items-center justify-center h-full">
                 <div class="text-center text-white">
                     <h1 class="text-5xl font-bold mb-4 hover:text-yellow-300">Discover Your Perfect Destination</h1>
                     <p class="text-xl mb-8">Explore amazing holiday packages and create unforgettable memories</p>

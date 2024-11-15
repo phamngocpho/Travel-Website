@@ -1,6 +1,6 @@
 @extends('user.layouts.app')
 
-@section('title', 'Welcome to Traveling - Your Perfect Holiday Partner')
+@section('title', 'Wishlist')
 
 @section('content')
     <div class="container mx-auto">

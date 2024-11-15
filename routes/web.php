@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/', function () {
     return view('user.home');
@@ -14,6 +16,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/settings', [SettingsController::class, 'show'])->name('settings');
+});
 
 Route::get('/explore', function () {
     return view(view: 'user.explore');

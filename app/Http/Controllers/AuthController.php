@@ -19,20 +19,24 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        
         Log::info('Attempting login for email: ' . $credentials['email']);
-        if (Auth::attempt($credentials)) {
+        
+        // Thêm tham số remember vào Auth::attempt()
+        if (Auth::attempt($credentials, $request->has('remember'))) {
             $request->session()->regenerate();
+            
             if (Auth::user()->role === 'ADMIN') {
                 return redirect()->intended('/admin');
             }
             return redirect()->intended('/');
         }
         Log::error('Login failed for email: ' . $credentials['email']);
-
+    
         return back()->withErrors([
             'email' => 'Thông tin xác thực không khớp',
         ])->withInput($request->only('email'));
-    }
+    }    
     public function logout(Request $request)
     {
         Auth::logout();

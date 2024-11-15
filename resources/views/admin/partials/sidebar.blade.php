@@ -1,4 +1,4 @@
-<div class="bg-gray-900" x-data="{ collapsed: false, openMenu: null }">
+<div class="bg-gray-900" x-data="{ collapsed: true, openMenu: null }">
     <div class="flex ">
         <!-- Sidebar -->
         <div class="fixed bg-gray-900 text-gray-300 border-r border-gray-700 transition-all duration-300 ease-in-out overflow-visible" 
@@ -26,7 +26,7 @@
                 <nav class="p-2 space-y-1">
                     <!-- Dashboard -->
                     <div class="relative group">
-                        <a href="#" 
+                        <a href="" 
                            class="menu-item flex text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200"
                            :class="{'': collapsed}"
                            @mouseenter="$refs.dashboardTooltip.classList.remove('hidden')"
@@ -46,9 +46,10 @@
 
                     <!-- Tour -->
                     <div class="relative group">
-                        <a href="{{ route('tours.create')}}" 
+                        <a href="" 
+                            data-route="{{ route('tours.create')}}"
                             class="menu-item flex text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200"
-                            :class="{'': collapsed}"
+                            onclick="loadContent(this); return false;"
                             @mouseenter="$refs.tourTooltip.classList.remove('hidden')"
                             @mouseleave="$refs.tourTooltip.classList.add('hidden')">
                             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,11 +70,13 @@
 
                     <!-- Security Menu -->
                     <div class="relative group" 
-                         x-data="{ open: false }" 
-                         @mouseenter="open = true; openMenu = 'security'" 
-                         @mouseleave="setTimeout(() => { if (openMenu === 'security') { open = false; openMenu = null; } }, 300)">
-                        <a href="{{ route('security') }}" 
-                           class="menu-item flex items-center justify-between text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200">
+                        x-data="{ open: false }" 
+                        @mouseenter="open = true; openMenu = 'security'" 
+                        @mouseleave="setTimeout(() => { if (openMenu === 'security') { open = false; openMenu = null; } }, 300)">
+                        <a href=""
+                            data-route="{{ route('security') }}"
+                            class="menu-item flex items-center justify-between text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200"
+                            onclick="loadContent(this); return false;">
                             <div class="flex items-center" :class="{'justify-center': collapsed}">
                                 <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -93,9 +96,9 @@
                              x-transition:enter-end="opacity-100 transform translate-y-0"
                              @mouseenter="open = true; openMenu = 'security'"
                              @mouseleave="setTimeout(() => { if (openMenu === 'security') { open = false; openMenu = null; } }, 300)">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Access Control</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Security Logs</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Authentication</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Access Control</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Security Logs</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Authentication</a>
                         </div>
 
                         <!-- Security Submenu - Shows below when expanded -->
@@ -106,9 +109,9 @@
                              x-transition:enter-end="opacity-100 transform translate-y-0"
                              @mouseenter="open = true; openMenu = 'security'"
                              @mouseleave="setTimeout(() => { if (openMenu === 'security') { open = false; openMenu = null; } }, 300)">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Access Control</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Security Logs</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Authentication</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Access Control</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Security Logs</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Authentication</a>
                         </div>
                     </div>
 
@@ -117,7 +120,7 @@
                          x-data="{ open: false }" 
                          @mouseenter="open = true; openMenu = 'settings'" 
                          @mouseleave="setTimeout(() => { if (openMenu === 'settings') { open = false; openMenu = null; } }, 300)">
-                        <a href="#" 
+                        <a href="" 
                            class="menu-item flex items-center justify-between text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200">
                             <div class="flex items-center" :class="{'justify-center': collapsed}">
                                 <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,9 +141,9 @@
                              x-transition:enter-end="opacity-100 transform translate-y-0"
                              @mouseenter="open = true; openMenu = 'settings'"
                              @mouseleave="setTimeout(() => { if (openMenu === 'settings') { open = false; openMenu = null; } }, 300)">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Profile Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Account Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Privacy Settings</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Profile Settings</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Account Settings</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Privacy Settings</a>
                         </div>
 
                         <!-- Settings Submenu - Shows below when expanded -->
@@ -151,9 +154,9 @@
                              x-transition:enter-end="opacity-100 transform translate-y-0"
                              @mouseenter="open = true; openMenu = 'settings'"
                              @mouseleave="setTimeout(() => { if (openMenu === 'settings') { open = false; openMenu = null; } }, 300)">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Profile Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Account Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Privacy Settings</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Profile Settings</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Account Settings</a>
+                            <a href="" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white">Privacy Settings</a>
                         </div>
                     </div>
                 </nav>
@@ -165,6 +168,50 @@
 <style>
     [x-cloak] { display: none !important; }
 </style>
+
+<script>
+function loadContent(element) {
+    const route = element.getAttribute('data-route');
+    
+    // Hiển thị loading indicator nếu cần
+    document.getElementById('content-container').innerHTML = '<div class="flex justify-center items-center h-screen"><div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div></div>';
+
+    // Sử dụng fetch để lấy nội dung
+    fetch(route, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        // Cập nhật URL mà không reload trang
+        window.history.pushState({}, '', route);
+        
+        // Parse HTML response để lấy phần content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('#content-container') || doc.querySelector('.container');
+        
+        // Cập nhật nội dung
+        document.getElementById('content-container').innerHTML = content.innerHTML;
+        
+        // Chạy lại các script trong content mới nếu cần
+        const scripts = content.getElementsByTagName('script');
+        for(let script of scripts) {
+            eval(script.innerHTML);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('content-container').innerHTML = '<div class="text-red-500">Error loading content</div>';
+    });
+}
+
+// Xử lý nút back/forward của trình duyệt
+window.addEventListener('popstate', function() {
+    loadContent({ getAttribute: () => window.location.href });
+});
+</script>
 
 <!-- Add Alpine.js -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

@@ -13,7 +13,7 @@
         }
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            bahckdrop-filter: blur(10px);
         }
         .form-container {
             transition: all 0.5s ease-in-out;

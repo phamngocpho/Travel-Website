@@ -94,8 +94,9 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
-            'throttle' => 60,
+            'expire' => 60, // Thời gian hết hạn của link reset password (phút)
+            'throttle' => 60, // Thời gian chờ giữa các lần gửi email reset (giây)
+            'remember_for' => 604800, // Thời gian ghi nhớ đăng nhập (giây), mặc định là 7 ngày
         ],
     ],
 
