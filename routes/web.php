@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', function () {
     return view('user.home');
@@ -66,6 +67,14 @@ Route::get('/admin', function () {
 Route::get('/admin/security', function () {
     return view('admin.security');
 })  ->name('security');
+
+Route::get('/admin/UserMNG', [AdminUserController::class, 'index'])-> name('userManagement');
+Route::post('/admin/UserMNG', [AdminUserController::class,'index']);
+Route::get('/admin/UserMNG/{user}/editUser', [AdminUserController::class, 'showInFor'])->name('showInFor');
+
+Route::delete('admin/UserMNG/deleteUser/{user}', [AdminUserController::class, 'delete'])->name('deleteUser');
+Route::put('admin/UserMNG/editUser/update/{user}', [AdminUserController::class, 'update'])->name('update');
+
 
 Route::get('/tours/create', [TourController::class, 'create'])->name('tours.create');
 Route::post('/tours/store', [TourController::class, 'store'])->name('tours.store');

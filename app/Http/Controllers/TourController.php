@@ -24,6 +24,14 @@ class TourController extends Controller
         // Nếu không phải AJAX, trả về view đầy đủ với layout
         return view('admin.create', compact('locations'));
     }
+    public function userMNG(){
+        if (request()->ajax()) {
+            // Trả về chỉ phần view content
+            return view('admin.userManagement', compact('locations'))->render();
+        }
+        // Nếu không phải AJAX, trả về view đầy đủ với layout
+        return view('admin.create', compact('locations'));
+    }
 
     public function store(Request $request) 
     {

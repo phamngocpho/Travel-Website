@@ -67,6 +67,30 @@
                             Tour
                         </div>
                     </div>
+                    <div class="relative group">
+                        <a href="" 
+                            data-route="{{ route('userManagement')}}"
+                            class="menu-item flex text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg p-2 transition-all duration-200"
+                            onclick="loadContent(this); return false;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M12 14a6 6 0 0 0-6 6v1h12v-1a6 6 0 0 0-6-6z"/>
+                                <circle cx="19" cy="19" r="2"/>
+                                <path d="M19 15.5V17"/>
+                                <path d="M19 21v1.5"/>
+                                <path d="M22.5 19H21"/>
+                                <path d="M17 19h-1.5"/>
+                            </svg>
+
+                            <span class="ml-3 whitespace-nowrap" x-show="!collapsed">Tour</span>
+                        </a>
+                        <!-- Tooltip for collapsed state -->
+                        <div x-ref="dashboardTooltip"
+                             class="hidden absolute left-full top-0 ml-2 bg-gray-800 text-white text-sm py-1 px-2 rounded shadow-lg whitespace-nowrap z-50"
+                             x-show="collapsed">
+                            Tour
+                        </div>
+                    </div>
 
                     <!-- Security Menu -->
                     <div class="relative group" 
