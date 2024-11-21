@@ -3,7 +3,7 @@
 @section('title', 'Edit User')
 
 @section('content')
-<div class="p-6 ml-64">
+<div class="p-6">
     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
         <div class="flex items-center space-x-4 mb-6">
             <div class="relative">
@@ -129,7 +129,6 @@
         </form>
     </div>
 </div>
-// Thêm vào cuối file admin.editUser.blade.php
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');

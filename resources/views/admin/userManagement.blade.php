@@ -4,7 +4,7 @@
 @section('title', 'User Management')
 
 @section('content')
-<div class="p-6 ml-64"> <!-- ml-64 để tránh sidebar đè lên content -->
+<div class="p-6">
     <div class="mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">User Management</h1>
         <p class="text-gray-600">Manage all system users</p>

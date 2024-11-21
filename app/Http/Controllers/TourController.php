@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Tour;
@@ -15,22 +16,107 @@ class TourController extends Controller
     {
         $locations = Location::all();
         
-        // Kiểm tra nếu là AJAX request
         if (request()->ajax()) {
-            // Trả về chỉ phần view content
             return view('admin.create', compact('locations'))->render();
         }
         
-        // Nếu không phải AJAX, trả về view đầy đủ với layout
         return view('admin.create', compact('locations'));
     }
-    public function userMNG(){
-        if (request()->ajax()) {
-            // Trả về chỉ phần view content
-            return view('admin.userManagement', compact('locations'))->render();
+
+    public function getFormData()
+    {
+        try {
+            $locations = Location::all();
+            return response()->json([
+                'success' => true,
+                'formData' => [
+                    'locations' => $locations,
+                    // Thêm data khác nếu cần
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
         }
-        // Nếu không phải AJAX, trả về view đầy đủ với layout
-        return view('admin.create', compact('locations'));
+    }
+
+    public function tempStore(Request $request)
+    {
+        try {
+            // Validate dữ liệu tạm thời
+            $validated = $request->validate([
+                'tour_name' => 'nullable|string',
+                'duration' => 'nullable|integer',
+                'price' => 'nullable|numeric',
+                'group_size' => 'nullable|integer',
+                'tour_type' => 'nullable|string',
+                'difficulty' => 'nullable|string',
+                'inclusions' => 'nullable|array',
+                'start_location' => 'nullable|string',
+                'destinations' => 'nullable|string',
+            ]);
+
+            // Lưu vào session
+            session(['temp_tour_data' => $validated]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data temporarily stored'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 422);
+        }
+    }
+
+    public function validateStep(Request $request, $step)
+    {
+        try {
+            $rules = $this->getValidationRules($step);
+            $validated = $request->validate($rules);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Step validation successful'
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors()
+            ], 422);
+        }
+    }
+
+    private function getValidationRules($step)
+    {
+        switch ($step) {
+            case 1:
+                return [
+                    'tour_name' => 'required|string',
+                    'duration' => 'required|integer',
+                    'price' => 'required|numeric',
+                    'group_size' => 'required|integer',
+                    'tour_type' => 'required|string',
+                    'difficulty' => 'required|string',
+                ];
+            case 2:
+                return [
+                    'start_location' => 'required|string',
+                    'destinations' => 'required|string',
+                ];
+            case 3:
+                return [
+                    'itinerary' => 'required|array',
+                    'itinerary.*.title' => 'required|string',
+                    'itinerary.*.activities' => 'required|string',
+                ];
+            default:
+                return [];
+        }
     }
 
     public function store(Request $request) 
@@ -53,7 +139,6 @@ class TourController extends Controller
             
             $tour = Tour::create($validated);
             
-            // Tạo price list
             $priceList = PriceList::create([
                 'tour_id' => $tour->tour_id,
                 'price_list_name' => 'Default Price List',
@@ -69,14 +154,12 @@ class TourController extends Controller
                     'success' => true,
                     'message' => 'Tour created successfully',
                     'data' => $tour,
-                    // Thêm URL để redirect sau khi tạo thành công
                     'redirect_url' => route('tours.create'),
                 ]);
             }
 
-            // Nếu không phải AJAX request
             return redirect()->route('tours.create')
-                           ->with('success', value: 'Tour created successfully');
+                           ->with('success', 'Tour created successfully');
 
         } catch (ValidationException $e) {
             DB::rollBack();
@@ -107,16 +190,6 @@ class TourController extends Controller
         }
     }
 
-    // Thêm method để lấy partial view cho AJAX
-    public function getPartialView($viewName, $data = [])
-    {
-        if (request()->ajax()) {
-            return view("admin.partials.{$viewName}", $data)->render();
-        }
-        
-        abort(404);
-    }
-
     public function finalStore(Request $request)
     {
         DB::beginTransaction();
@@ -124,10 +197,12 @@ class TourController extends Controller
             // Lưu tour
             $tour = Tour::create($request->tour);
             
-            // Lưu location
-            $location = Location::create($request->location);
-            $tour->location()->associate($location);
-            $tour->save();
+            // Lưu location nếu cần
+            if ($request->has('location')) {
+                $location = Location::create($request->location);
+                $tour->location()->associate($location);
+                $tour->save();
+            }
             
             // Lưu price list
             $priceList = PriceList::create([
@@ -137,12 +212,14 @@ class TourController extends Controller
             ]);
             
             // Lưu price details
-            foreach($request->prices as $price) {
-                PriceDetail::create([
-                    'price_list_id' => $priceList->price_list_id,
-                    'customer_type' => $price['type'],
-                    'price' => $price['amount']
-                ]);
+            if ($request->has('prices')) {
+                foreach($request->prices as $price) {
+                    PriceDetail::create([
+                        'price_list_id' => $priceList->price_list_id,
+                        'customer_type' => $price['type'],
+                        'price' => $price['amount']
+                    ]);
+                }
             }
             
             DB::commit();
@@ -167,7 +244,7 @@ class TourController extends Controller
                     'message' => $e->getMessage()
                 ], 500);
             }
-
+            
             return back()->with('error', $e->getMessage())
                         ->withInput();
         }

@@ -13,6 +13,7 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <!-- Tailwind Config -->
     <script>
@@ -36,10 +37,30 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Kalam', cursive;
         }
+        /* scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: #cbd5e1;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+            background: rgba(255, 255, 255, 0.3);
+        }
     </style>
     
-    <!-- Font Awesome cho các icon -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     @yield('styles')
 </head>
 <body class="font-sans min-h-screen flex flex-col">
