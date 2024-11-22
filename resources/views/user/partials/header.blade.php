@@ -4,7 +4,7 @@
             <div class="flex space-x-7">
                 <div>
                     <!-- Website Logo -->
-                    <a href="{{ url('/') }}" class="flex items-center py-4 px-2">
+                    <a href="{{ url('/home') }}" class="flex items-center py-4 px-2">
                         <span class="font-bold text-2xl text-blue-600 font-kalam">Traveling</span>
                     </a>
                 </div>

@@ -153,7 +153,6 @@
         <div class="bg-white rounded-xl shadow-sm mt-16">
             <form id="tourForm" method="POST" action="{{ route('tours.store') }}" class="space-y-8">
                 @csrf
-
                 <!-- Step 1: Basic Information -->
                 <div id="step1" class="step-content p-8">
                     <div class="space-y-8">
@@ -165,103 +164,185 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Tour Name -->
                             <div class="input-group">
-                                <label for="tour_name" class="form-label">Tour Name</label>
-                                <input type="text" name="tour_name" id="tour_name" required
+                                <label for="tour_name" class="form-label">Tour Name <span class="text-red-500">*</span></label>
+                                <input type="text" 
+                                    name="tour_name" 
+                                    id="tour_name" 
+                                    required
+                                    maxlength="200"
                                     class="form-input-field w-full"
                                     placeholder="Enter tour name">
                             </div>
-
-                            <!-- Duration -->
+                            
+                            <!-- Duration Days -->
                             <div class="input-group">
-                                <label for="duration" class="form-label">Duration (Days)</label>
-                                <input type="number" name="duration" id="duration" min="1" required
+                                <label for="duration_days" class="form-label">Duration (Days) <span class="text-red-500">*</span></label>
+                                <input type="number" 
+                                    name="duration_days" 
+                                    id="duration_days" 
+                                    required
+                                    min="1"
                                     class="form-input-field w-full"
                                     placeholder="Number of days">
                             </div>
 
-                            <!-- Price -->
-                            <div class="input-group">
-                                <label for="price" class="form-label">Price per Person</label>
-                                <div style="position: relative;">
-                                    <div style="position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); pointer-events: none;">
-                                        <span style="color: #6B7280;">$</span>
-                                    </div>
-                                    <input type="number" name="price" id="price" required
+                            <!-- Description -->
+                            <div class="input-group col-span-2">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea name="description" 
+                                        id="description" 
                                         class="form-input-field w-full"
-                                        style="padding-left: 2rem;"
-                                        placeholder="0.00">
-                                </div>
+                                        rows="4"
+                                        placeholder="Enter tour description"></textarea>
                             </div>
 
-                            <!-- Group Size -->
-                            <div>
-                                <label for="group_size" class="block text-sm font-medium text-gray-700">Max Group Size</label>
-                                <div class="mt-1">
-                                    <input type="number" name="group_size" id="group_size" min="1" required
-                                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                        placeholder="Maximum number of participants">
-                                </div>
-                            </div>
-
-                            <!-- Tour Type -->
+                            <!-- Max Participants -->
                             <div class="input-group">
-                                <label for="tour_type" class="form-label">Tour Type</label>
-                                <select id="tour_type" name="tour_type" required
-                                    class="form-select-field w-full">
-                                    <option value="">Select a type</option>
+                                <label for="max_participants" class="form-label">Maximum Participants</label>
+                                <input type="number" 
+                                    name="max_participants" 
+                                    id="max_participants" 
+                                    min="1"
+                                    class="form-input-field w-full"
+                                    placeholder="Maximum number of participants">
+                            </div>
+
+                            <!-- Category -->
+                            <div class="input-group">
+                                <label for="category" class="form-label">Category</label>
+                                <select name="category" id="category" class="form-input-field w-full">
+                                    <option value="">Select Category</option>
                                     <option value="adventure">Adventure</option>
                                     <option value="cultural">Cultural</option>
                                     <option value="nature">Nature</option>
-                                    <option value="city">City Tour</option>
-                                    <option value="beach">Beach</option>
+                                    <option value="urban">Urban</option>
                                 </select>
                             </div>
 
-                            <!-- Difficulty Level -->
-                            <div>
-                                <label for="difficulty" class="block text-sm font-medium text-gray-700">Difficulty Level</label>
-                                <select id="difficulty" name="difficulty" required
-                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                    <option value="">Select difficulty</option>
-                                    <option value="easy">Easy</option>
-                                    <option value="moderate">Moderate</option>
-                                    <option value="challenging">Challenging</option>
-                                    <option value="difficult">Difficult</option>
+                            <!-- Transportation -->
+                            <div class="input-group">
+                                <label for="transportation" class="form-label">Transportation</label>
+                                <input type="text" 
+                                    name="transportation" 
+                                    id="transportation" 
+                                    maxlength="100"
+                                    class="form-input-field w-full"
+                                    placeholder="Transportation details">
+                            </div>
+
+                            <!-- Location -->
+                            <div class="input-group">
+                                <label for="location_id" class="form-label">Location</label>
+                                <select name="location_id" id="location_id" class="form-input-field w-full">
+                                    <option value="">Select Location</option>
+                                    @foreach($locations as $location)
+                                        <option value="{{ $location->location_id }}">{{ $location->location_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-                        </div>
 
-                        <!-- Inclusions -->
-                        <div class="input-group">
-                            <label class="form-label">Tour Inclusions</label>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                                <label class="checkbox-group" style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <input type="checkbox" name="inclusions[]" value="accommodation"
-                                        class="form-checkbox-field">
-                                    <span style="font-size: 1rem; color: #374151;">Accommodation</span>
-                                </label>
-                                
-                                <label class="checkbox-group" style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <input type="checkbox" name="inclusions[]" value="accommodation"
-                                        class="form-checkbox-field">
-                                    <span style="font-size: 1rem; color: #374151;">Meals</span>
-                                </label>
+                            <!-- Highlight Places -->
+                            <div class="input-group col-span-2">
+                                <label for="highlight_places" class="form-label">Highlight Places</label>
+                                <textarea name="highlight_places" 
+                                        id="highlight_places" 
+                                        class="form-input-field w-full"
+                                        rows="3"
+                                        placeholder="Enter highlight places"></textarea>
+                            </div>
 
-                                <label class="checkbox-group" style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <input type="checkbox" name="inclusions[]" value="accommodation"
-                                        class="form-checkbox-field">
-                                    <span style="font-size: 1rem; color: #374151;">Transportation</span>
-                                </label>
+                            <!-- Additional Options -->
+                            <div class="input-group col-span-2">
+                                <label class="form-label">Package Options</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <!-- Include Hotel -->
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="include_hotel" value="0">
+                                        <input type="checkbox" 
+                                            name="include_hotel" 
+                                            id="include_hotel" 
+                                            value="1"
+                                            checked
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Include Hotel</span>
+                                    </label>
+                                    
+                                    <!-- Include Meal -->
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="include_meal" value="0">
+                                        <input type="checkbox" 
+                                            name="include_meal" 
+                                            id="include_meal" 
+                                            value="1"
+                                            checked
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Include Meals</span>
+                                    </label>
+                                </div>
+                            </div>
 
-                                <label class="checkbox-group" style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <input type="checkbox" name="inclusions[]" value="accommodation"
-                                        class="form-checkbox-field">
-                                    <span style="font-size: 1rem; color: #374151;">Tour Guide</span>
-                                </label>
+                            <!-- Tour Status -->
+                            <div class="input-group col-span-2">
+                                <label class="form-label">Tour Status</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="is_active" value="0">
+                                        <input type="checkbox" 
+                                            name="is_active" 
+                                            id="is_active" 
+                                            value="1"
+                                            checked
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Active Tour</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Tour Inclusions -->
+                            <div class="input-group col-span-2">
+                                <label class="form-label">Tour Inclusions</label>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="inclusions[accommodation]" value="0">
+                                        <input type="checkbox" 
+                                            name="inclusions[accommodation]" 
+                                            value="1"
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Accommodation</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="inclusions[meals]" value="0">
+                                        <input type="checkbox" 
+                                            name="inclusions[meals]" 
+                                            value="1"
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Meals</span>
+                                    </label>
+
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="inclusions[transportation]" value="0">
+                                        <input type="checkbox" 
+                                            name="inclusions[transportation]" 
+                                            value="1"
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Transportation</span>
+                                    </label>
+
+                                    <label class="checkbox-group flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <input type="hidden" name="inclusions[guide]" value="0">
+                                        <input type="checkbox" 
+                                            name="inclusions[guide]" 
+                                            value="1"
+                                            class="form-checkbox-field">
+                                        <span class="text-base text-gray-700">Tour Guide</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Step 2: Location Details -->
                 <div id="step2" class="step-content p-8 hidden">
@@ -276,7 +357,7 @@
                             <div>
                                 <label for="start_location" class="block text-sm font-medium text-gray-700">Starting Point</label>
                                 <div class="mt-1">
-                                    <input type="text" name="start_location" id="start_location" required
+                                    <input type="text" name="start_location" id="start_location" 
                                         class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         placeholder="Tour starting location">
                                 </div>
@@ -286,7 +367,7 @@
                             <div>
                                 <label for="destinations" class="block text-sm font-medium text-gray-700">Key Destinations</label>
                                 <div class="mt-1">
-                                    <textarea name="destinations" id="destinations" rows="4" required
+                                    <textarea name="destinations" id="destinations" rows="4" 
                                         class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         placeholder="List main destinations (one per line)"></textarea>
                                 </div>
@@ -350,17 +431,28 @@
                                         <label class="block text-sm font-medium text-gray-700">Meals Included</label>
                                         <div class="mt-2 space-x-4">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" name="itinerary[0][meals][]" value="breakfast"
+                                                <input type="hidden" name="itinerary[0][meals][breakfast]" value="0">
+                                                <input type="checkbox" 
+                                                    name="itinerary[0][meals][breakfast]" 
+                                                    value="1"
                                                     class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                 <span class="ml-2 text-sm text-gray-600">Breakfast</span>
                                             </label>
+                                            
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" name="itinerary[0][meals][]" value="lunch"
+                                                <input type="hidden" name="itinerary[0][meals][lunch]" value="0">
+                                                <input type="checkbox" 
+                                                    name="itinerary[0][meals][lunch]" 
+                                                    value="1"
                                                     class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                 <span class="ml-2 text-sm text-gray-600">Lunch</span>
                                             </label>
+                                            
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" name="itinerary[0][meals][]" value="dinner"
+                                                <input type="hidden" name="itinerary[0][meals][dinner]" value="0">
+                                                <input type="checkbox" 
+                                                    name="itinerary[0][meals][dinner]" 
+                                                    value="1"
                                                     class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                 <span class="ml-2 text-sm text-gray-600">Dinner</span>
                                             </label>
@@ -459,13 +551,16 @@
                     </button>
 
                     <button type="submit" id="submit-form" 
-                        class="form-navigation hidden inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        class="form-navigation inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" style="display: none;">
                         Create Tour
                     </button>
                 </div>
             </form>
         </div>
     </div>
+    <!-- Add SweetAlert2 CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -546,7 +641,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-
     function displayErrors(errors) {
         clearErrors();
         Object.keys(errors).forEach(key => {
@@ -587,7 +681,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update buttons
         prevBtn.style.display = currentStep === 1 ? 'none' : 'block';
         nextBtn.style.display = currentStep === totalSteps ? 'none' : 'block';
-        submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
+        
+        // Update submit button visibility
+        if (currentStep === totalSteps) {
+            submitBtn.style.display = 'block';
+            nextBtn.style.display = 'none';
+        } else {
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'block';
+        }
         
         // Update progress indicators
         updateProgressIndicators();
@@ -636,58 +738,68 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handler
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        // Show loading state
+        Swal.fire({
+            title: 'Processing...',
+            text: 'Creating your tour...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
         
-        // Validate final step before submission
-        const isValid = await validateStep(currentStep);
-        
-        if (isValid) {
-            try {
-                const formData = new FormData(this);
-                
-                const response = await fetch("{{ route('tours.store') }}", {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json'
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch("{{ route('tours.store') }}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'  // Add this header to indicate AJAX request
+                }
+            });
+
+            // Check if response is JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Server returned non-JSON response');
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Tour has been created successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = data.redirect_url;
                     }
                 });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    // Show success message
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Tour has been created successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Redirect to tour list or dashboard
-                            window.location.href = "{{ route('admin') }}";
-                        }
-                    });
-                } else {
-                    // Show error message
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'There was an error creating the tour. Please try again.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
+            } else {
                 Swal.fire({
                     title: 'Error!',
-                    text: 'An unexpected error occurred. Please try again.',
+                    text: data.message || 'There was an error creating the tour.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
             }
+        } catch (error) {
+            console.error('Submission error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'An unexpected error occurred. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     });
+
+
 
     // File upload preview (if you have image uploads)
     const imageInput = document.querySelector('input[type="file"]');
@@ -732,6 +844,131 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    const itineraryContainer = document.getElementById('itinerary-container');
+    const addDayButton = document.getElementById('add-day');
+    let dayCount = 1;
+
+    // Thêm event listener cho nút "Add Day"
+    addDayButton.addEventListener('click', function() {
+        addNewDay();
+    });
+
+    // Hàm thêm ngày mới
+    function addNewDay() {
+        const newDay = document.createElement('div');
+        newDay.className = 'itinerary-day bg-gray-50 p-6 rounded-lg';
+        newDay.innerHTML = `
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Day ${dayCount + 1}</h3>
+                <button type="button" class="remove-day text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">Remove day</span>
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Title -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Day Title</label>
+                    <input type="text" name="itinerary[${dayCount}][title]" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        placeholder="e.g., Arrival and City Tour">
+                </div>
+
+                <!-- Activities -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Activities</label>
+                    <textarea name="itinerary[${dayCount}][activities]" rows="3" 
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        placeholder="Describe the day's activities"></textarea>
+                </div>
+
+                <!-- Meals Included -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Meals Included</label>
+                    <div class="mt-2 space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="hidden" name="itinerary[${dayCount}][meals][breakfast]" value="0">
+                            <input type="checkbox" 
+                                name="itinerary[${dayCount}][meals][breakfast]" 
+                                value="1"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-600">Breakfast</span>
+                        </label>
+                        
+                        <label class="inline-flex items-center">
+                            <input type="hidden" name="itinerary[${dayCount}][meals][lunch]" value="0">
+                            <input type="checkbox" 
+                                name="itinerary[${dayCount}][meals][lunch]" 
+                                value="1"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-600">Lunch</span>
+                        </label>
+                        
+                        <label class="inline-flex items-center">
+                            <input type="hidden" name="itinerary[${dayCount}][meals][dinner]" value="0">
+                            <input type="checkbox" 
+                                name="itinerary[${dayCount}][meals][dinner]" 
+                                value="1"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-600">Dinner</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Accommodation -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Accommodation</label>
+                    <input type="text" name="itinerary[${dayCount}][accommodation]"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        placeholder="Hotel/Accommodation name">
+                </div>
+            </div>
+        `;
+
+        itineraryContainer.appendChild(newDay);
+        dayCount++;
+        updateDayNumbers();
+
+        // Thêm event listener cho nút remove của ngày mới
+        const removeButton = newDay.querySelector('.remove-day');
+        removeButton.addEventListener('click', function() {
+            newDay.remove();
+            updateDayNumbers();
+        });
+    }
+
+    // Thêm event listener cho nút remove của ngày đầu tiên
+    const firstDayRemoveButton = document.querySelector('.itinerary-day .remove-day');
+    if (firstDayRemoveButton) {
+        firstDayRemoveButton.addEventListener('click', function() {
+            if (itineraryContainer.children.length > 1) {
+                firstDayRemoveButton.closest('.itinerary-day').remove();
+                updateDayNumbers();
+            }
+        });
+    }
+
+    // Hàm cập nhật số thứ tự ngày
+    function updateDayNumbers() {
+        const days = itineraryContainer.querySelectorAll('.itinerary-day');
+        days.forEach((day, index) => {
+            const dayTitle = day.querySelector('h3');
+            dayTitle.textContent = `Day ${index + 1}`;
+            
+            // Cập nhật lại các name attribute
+            const inputs = day.querySelectorAll('input[name^="itinerary["], textarea[name^="itinerary["]');
+            inputs.forEach(input => {
+                const currentName = input.getAttribute('name');
+                const newName = currentName.replace(/itinerary\[\d+\]/, `itinerary[${index}]`);
+                input.setAttribute('name', newName);
+            });
+        });
+    }
+
 
     // Price calculation (if needed)
     const adultPrice = document.querySelector('input[name="adult_price"]');

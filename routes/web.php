@@ -6,9 +6,10 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AdminUserController;
+use Illuminate\Support\Facades\Auth;
 
 // Public routes
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('user.home');
 });
 
@@ -65,6 +66,9 @@ Route::get('/trip-details', function () {
 // Admin routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', function () {
+        if (!Auth::check() || Auth::user()->role !== 'ADMIN') {
+            return redirect('/home')->with('error', 'Bạn không có quyền truy cập');
+        }
         return view('admin.home');
     })->name('admin');
 
@@ -77,7 +81,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('userManagement');
         Route::post('/', [AdminUserController::class, 'index']);
         Route::get('/{user}/editUser', [AdminUserController::class, 'showInFor'])->name('showInFor');
-        Route::delete('/deleteUser/{user}', [AdminUserController::class, 'delete'])->name('deleteUser');
+        Route::delete('/deleteUser/{user}', action: [AdminUserController::class, 'delete'])->name('deleteUser');
         Route::put('/editUser/update/{user}', [AdminUserController::class, 'update'])->name('update');
     });
 });
