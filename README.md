@@ -64,24 +64,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
-
-
-
-
-<pre>
-git clone https://github.com/QuangVinh170220005/Travel-Website.git
-composer install
-php artisan migrate
-php artisan key:generate
-
-git add .
-git commit -m "tên tùy ý"      
-git push -u origin main
-
-git reset --hard (nếu không pull được)
-git pull origin main
-
-pull (cập nhật code về local)
-</pre>
